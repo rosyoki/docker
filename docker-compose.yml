@@ -1,32 +1,24 @@
-version: '3'
+version: '2'
 services:
-  myservice:
-    build: .
-    container_name: myservice
-    command: tail -f /dev/null
-    volumes:
-      - .:/work
-      - my-vol:/data
-    links:
-      - myweb
-      - mydb
-  myweb:
-    image: nginx
-    container_name: myweb
-    restart: always
-    volumes:
-      - my-vol:/data
-    ports:
-      - 20080:80
-  mydb:
+
+  dbserver:
     image: mysql
-    container_name: mydb
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
     volumes:
-      - my-vol:/data
+      - ./sql:/docker-entrypoint-initdb.d
+    environment:
+            MYSQL_DATABASE: blog_db
+            MYSQL_USER: sboot
+            MYSQL_PASSWORD: sboot
+            MYSQL_ROOT_PASSWORD: root
+
+  myadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - dbserver
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: dbserver
+      PMA_USER: root
+      PMA_PASSWORD: root
     ports:
-      - 23306:3306
-volumes:
-  my-vol:
+      - "1111:80"
