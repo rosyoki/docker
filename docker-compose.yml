@@ -12,3 +12,16 @@ services:
             MYSQL_USER: sboot
             MYSQL_PASSWORD: sboot
             MYSQL_ROOT_PASSWORD: root
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    links:
+      - mysql
+    ports:
+      - 1111:80
+    volumes:
+      - /session
