@@ -2,6 +2,8 @@ version: '2'
 services:
   app-web:
     build: ./web
+    volumes:
+      - ../docker_tmp/SampleSpringApp.war:/usr/local/tomcat/webapps/SampleSpringApp.war
     ports:
       - "8081:8080"
     links:
