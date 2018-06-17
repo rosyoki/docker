@@ -1,7 +1,7 @@
 version: '2'
 services:
-  app-web:
-    build: ./web
+  app-tomcat:
+    build: ./tomcat
     volumes:
       - ../docker_tmp/SampleSpringApp.war:/usr/local/tomcat/webapps/SampleSpringApp.war
     ports:
