@@ -1,6 +1,8 @@
 version: '2'
 services:
   app-tomcat:
+    environment:
+      - "TZ=Japan"
     build: ./tomcat
     volumes:
       - ../docker_tmp/SampleSpringApp.war:/usr/local/tomcat/webapps/SampleSpringApp.war
@@ -17,10 +19,11 @@ services:
     ports:
       - "53306:3306"
     environment:
-            MYSQL_DATABASE: blog_db
-            MYSQL_USER: sboot
-            MYSQL_PASSWORD: sboot
-            MYSQL_ROOT_PASSWORD: root
+            - "TZ=Japan"
+            - MYSQL_DATABASE=blog_db
+            - MYSQL_USER=sboot
+            - MYSQL_PASSWORD=sboot
+            - MYSQL_ROOT_PASSWORD=root
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
