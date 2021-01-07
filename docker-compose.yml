@@ -5,19 +5,19 @@ services:
       - "TZ=Japan"
     build: ./tomcat
     volumes:
-      - ../docker_tmp/SampleSpringApp.war:/usr/local/tomcat/webapps/SampleSpringApp.war
+      - ./tomcat/apps/:/usr/local/tomcat/webapps
     ports:
       - "8081:8080"
     links:
-      - mysql
+      - app-mysql
 
-  mysql:
+  app-mysql:
     build: ./mysql/
     volumes:
       - ./mysql/mysql_data:/var/lib/mysql
       - ./mysql/sqls:/docker-entrypoint-initdb.d
     ports:
-      - "53306:3306"
+      - "3306:3306"
     environment:
             - "TZ=Japan"
             - MYSQL_DATABASE=blog_db
@@ -32,7 +32,7 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=root
     links:
-      - mysql
+      - app-mysql
     ports:
       - 1111:80
     volumes:
