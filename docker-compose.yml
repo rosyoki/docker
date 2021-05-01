@@ -1,4 +1,4 @@
-version: '2'
+version: '3.5'
 services:
   nginx:
     image: nginx:latest
@@ -7,6 +7,9 @@ services:
       - ./nginx/html:/usr/share/nginx/html
     ports:
       - "80:80"
+    networks: 
+      - app-net
+    
   app-tomcat:
     environment:
       - "TZ=Japan"
@@ -17,6 +20,8 @@ services:
       - "8081:8080"
     links:
       - app-mysql
+    networks: 
+      - app-net
 
   app-mysql:
     build: ./mysql/
@@ -25,9 +30,14 @@ services:
       - ./mysql/sqls:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
+    networks: 
+      - app-net
     environment:
             - "TZ=Japan"
             - MYSQL_DATABASE=blog_db
             - MYSQL_USER=sboot
             - MYSQL_PASSWORD=sboot
             - MYSQL_ROOT_PASSWORD=root
+networks: 
+  app-net:
+    driver: bridge
