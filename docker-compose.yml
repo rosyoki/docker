@@ -1,28 +1,5 @@
 version: '3.5'
 services:
-  nginx:
-    image: nginx:latest
-    volumes: 
-      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/html:/usr/share/nginx/html
-    ports:
-      - "80:80"
-    networks: 
-      - app-net
-    
-  app-tomcat:
-    environment:
-      - "TZ=Japan"
-    build: ./tomcat
-    volumes:
-      - ./tomcat/apps/:/usr/local/tomcat/webapps
-    ports:
-      - "8081:8080"
-    links:
-      - app-mysql
-    networks: 
-      - app-net
-
   app-mysql:
     build: ./mysql/
     volumes:
