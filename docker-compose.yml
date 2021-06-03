@@ -34,7 +34,7 @@ services:
       - app-net
     environment:
             - "TZ=Japan"
-            - MYSQL_DATABASE=blog_db
+            - MYSQL_DATABASE=anadg-ims
             - MYSQL_USER=sboot
             - MYSQL_PASSWORD=sboot
             - MYSQL_ROOT_PASSWORD=root
